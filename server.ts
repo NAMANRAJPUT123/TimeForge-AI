@@ -51,7 +51,7 @@ async function generateGeminiContent(config: {
   models?: string[];
 }) {
   const ai = getAiClient();
-  const modelsToTry = config.models || ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+  const modelsToTry = config.models || ['gemini-3.5-flash', 'gemini-3.1-flash-lite'];
   
   let lastError: any = null;
   
