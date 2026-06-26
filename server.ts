@@ -51,7 +51,13 @@ async function generateGeminiContent(config: {
   models?: string[];
 }) {
   const ai = getAiClient();
-  const modelsToTry = config.models || ['gemini-3.5-flash', 'gemini-3.1-flash-lite'];
+  const modelsToTry = config.models || [
+    'gemini-3.5-flash',
+    'gemini-2.0-flash',
+    'gemini-2.5-flash',
+    'gemini-2.5-pro',
+    'gemini-3.1-flash-lite'
+  ];
   
   let lastError: any = null;
   
@@ -84,7 +90,15 @@ async function generateGeminiContent(config: {
         console.warn(`Gemini call failed for model ${model} (attempt ${attempt}/2): ${errMsg}`);
         
         // Fast-fail bad requests/invalid schema so we don't spin on model errors
-        if (errMsg.includes('400') || errMsg.includes('INVALID_ARGUMENT') || errMsg.includes('SchemaType')) {
+        // Also skip immediately to the next model if we hit quota limits (429 / RESOURCE_EXHAUSTED)
+        if (
+          errMsg.includes('400') ||
+          errMsg.includes('INVALID_ARGUMENT') ||
+          errMsg.includes('SchemaType') ||
+          errMsg.includes('429') ||
+          errMsg.includes('RESOURCE_EXHAUSTED') ||
+          errMsg.toLowerCase().includes('quota')
+        ) {
           break; // break the attempt loop to try the next model or throw
         }
         
