@@ -17,6 +17,7 @@ export default function AIDailyBriefing({ tasks, onSelectTask, onTriggerAssistan
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [tone, setTone] = useState<BriefingTone>('Empathic Coach');
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
 
   const fetchBriefing = async (selectedTone?: BriefingTone) => {
     setIsLoading(true);
@@ -39,6 +40,7 @@ export default function AIDailyBriefing({ tasks, onSelectTask, onTriggerAssistan
       if (data.success) {
         setBriefing(data.briefing);
         setInsights(data.insights || []);
+        setLastUpdated(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
       } else {
         throw new Error(data.error || 'Unknown error');
       }
@@ -175,7 +177,7 @@ export default function AIDailyBriefing({ tasks, onSelectTask, onTriggerAssistan
             Tone: {tone}
           </span>
           <span className="text-[9px] text-slate-400 dark:text-slate-500 font-mono">
-            Proactive Guardian Module
+            {lastUpdated ? `Sync: ${lastUpdated}` : 'Proactive Guardian Module'}
           </span>
         </div>
       </div>
