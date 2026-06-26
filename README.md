@@ -74,47 +74,17 @@ The application runs a continuous dynamic telemetry check on your tasks, calcula
 
 ## 📸 Screenshots
 
-*Note: Replace the placeholder graphics below with actual screenshots of your running instance when publishing to your personal repository.*
+| AI Daily Briefing | Evaluated Guard List & AI Planner |
+| :---: | :---: |
+| ![AI Daily Briefing](assets/ai_daily_briefing.png) <br> *Proactive morning summary with adjustable coaching tones (Coach, Analyst, Sergeant).* | ![Evaluated Guard List](assets/evaluated_guard_list.png) <br> *Dynamic task management ranking tasks by computed risk score alongside subtask decompositions.* |
 
-### Dashboard
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                                                                          │
-│   [ PLACEHOLDER: DASHBOARD INTERFACE SCREENSHOT ]                        │
-│   - Showing the Active Guard List, Urgency Gauges, and Workload Charts   │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
-```
+| AI Rescue Guard Protocol (Crisis Mode) | Context-Aware Recommendations |
+| :---: | :---: |
+| ![AI Rescue Guard Protocol](assets/rescue_guard_protocol.png) <br> *Emergency recovery panel featuring adaptive de-scoping guides and action logs.* | ![Context-Aware Recommendations](assets/context_recommendations.png) <br> *Actionable insights personalized to your remaining calendar timeline.* |
 
-### AI Daily Briefing
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                                                                          │
-│   [ PLACEHOLDER: AI DAILY BRIEFING SCREENSHOT ]                          │
-│   - Showing tone selector pills (Coach, Analyst, Sergeant) and summaries │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
-```
-
-### AI Assistant
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                                                                          │
-│   [ PLACEHOLDER: AI CO-PILOT CHAT INTERFACE SCREENSHOT ]                 │
-│   - Showing interactive context-aware discussions on timeline risks       │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
-```
-
-### Risk Analytics
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                                                                          │
-│   [ PLACEHOLDER: CAPACITY ANALYTICS SCREENSHOT ]                         │
-│   - Showing the Recharts daily effort graphs versus remaining capacities │
-│                                                                          │
-└──────────────────────────────────────────────────────────────────────────┘
-```
+| Productivity Workload Trend | AI Shield Integrity Dashboard |
+| :---: | :---: |
+| ![Productivity Workload Trend](assets/productivity_workload_trend.png) <br> *Dynamic Recharts tracking hours allocated vs days remaining for burnout protection.* | ![AI Shield Integrity](assets/ai_shield_integrity.png) <br> *Real-time telemetry and score diagnostics evaluating schedule adherence.* |
 
 ---
 
