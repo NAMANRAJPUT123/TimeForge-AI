@@ -1,0 +1,118 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile stored in Firestore",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique Firebase Authentication UID of the user"
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the user registered"
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A task with deadline analysis, smart schedule, and emergency recovery plan",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the task"
+        },
+        "userId": {
+          "type": "string",
+          "description": "The UID of the owning user"
+        },
+        "name": {
+          "type": "string",
+          "description": "The name or title of the task"
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date",
+          "description": "The final deadline (YYYY-MM-DD)"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": ["Easy", "Medium", "Hard"],
+          "description": "Self-assessed difficulty"
+        },
+        "estimatedHours": {
+          "type": "integer",
+          "description": "Estimated work hours required"
+        },
+        "priorityScore": {
+          "type": "integer",
+          "description": "Priority score between 0 and 100"
+        },
+        "riskLevel": {
+          "type": "string",
+          "enum": ["Low", "Medium", "High"],
+          "description": "AI-calculated risk level"
+        },
+        "riskProbability": {
+          "type": "integer",
+          "description": "AI-calculated risk probability (0 to 100)"
+        },
+        "riskReason": {
+          "type": "string",
+          "description": "Detailed explanation of risk factors"
+        },
+        "subtasks": {
+          "type": "array",
+          "description": "AI-generated subtask list"
+        },
+        "schedule": {
+          "type": "array",
+          "description": "AI-generated day-by-day workload allocation"
+        },
+        "recoveryPlan": {
+          "type": "object",
+          "description": "AI-generated emergency plan if risk > 70%"
+        },
+        "recommendations": {
+          "type": "array",
+          "description": "Context-aware recommendations based on current progress"
+        },
+        "syncedToCalendar": {
+          "type": "boolean",
+          "description": "Whether the deadline event has been synced to Google Calendar"
+        },
+        "syncedScheduleDates": {
+          "type": "array",
+          "description": "Dates from the daily schedule that have been synced to Google Calendar"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "userId", "name", "deadline", "difficulty", "estimatedHours"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Individual user profiles mapped by Auth UID"
+    },
+    "/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Task items and AI outputs mapped by Task ID"
+    }
+  }
+}
