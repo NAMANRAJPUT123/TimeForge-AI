@@ -1,5 +1,5 @@
 import { Task } from '../types';
-import { Calendar, Trash2, ArrowUpRight, CheckCircle2, Circle, AlertTriangle, HelpCircle, Activity } from 'lucide-react';
+import { Calendar, Trash2, ArrowUpRight, CheckCircle2, Circle, AlertTriangle, HelpCircle, Activity, Bot } from 'lucide-react';
 
 interface TaskListProps {
   tasks: Task[];
@@ -31,7 +31,7 @@ export default function TaskList({
       return { text: `${Math.abs(diffDays)}d overdue`, color: 'text-rose-500 font-semibold' };
     }
     if (diffDays === 0) {
-      return { text: 'Today', color: 'text-amber-500 font-semibold' };
+      return { text: 'Today', color: 'text-amber-500 font-semibold animate-pulse' };
     }
     if (diffDays === 1) {
       return { text: 'Tomorrow', color: 'text-amber-500 font-medium' };
@@ -66,6 +66,96 @@ export default function TaskList({
     }
   };
 
+  // Intelligent Prioritization Calculator based on 5 dimensions
+  const getDynamicPriority = (task: Task) => {
+    const deadlineDate = new Date(task.deadline);
+    const today = new Date();
+    deadlineDate.setHours(0,0,0,0);
+    today.setHours(0,0,0,0);
+    const diffTime = deadlineDate.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    let score = 0;
+    const explanationParts: string[] = [];
+
+    // 1. Overdue Status & Proximity
+    if (diffDays < 0) {
+      score += 55;
+      explanationParts.push('Overdue');
+    } else if (diffDays === 0) {
+      score += 48;
+      explanationParts.push('Due today');
+    } else if (diffDays === 1) {
+      score += 40;
+      explanationParts.push('Due tomorrow');
+    } else if (diffDays <= 3) {
+      score += 28;
+      explanationParts.push('Imminent deadline');
+    } else if (diffDays <= 7) {
+      score += 15;
+      explanationParts.push('Due this week');
+    } else {
+      score += 5;
+    }
+
+    // 2. Difficulty Load
+    if (task.difficulty === 'Hard') {
+      score += 15;
+      explanationParts.push('High complexity');
+    } else if (task.difficulty === 'Medium') {
+      score += 8;
+      explanationParts.push('Medium complexity');
+    } else {
+      score += 2;
+    }
+
+    // 3. Estimated Hours Weight
+    if (task.estimatedHours >= 12) {
+      score += 15;
+      explanationParts.push('Extremely heavy workload');
+    } else if (task.estimatedHours >= 6) {
+      score += 8;
+      explanationParts.push('Substantial effort');
+    } else {
+      score += 3;
+    }
+
+    // 4. Progress Ratio Constraint
+    const subtasks = task.analysis?.subtasks || [];
+    const completedCount = subtasks.filter(s => s.isCompleted).length;
+    const progressRatio = subtasks.length > 0 ? completedCount / subtasks.length : 0;
+
+    if (task.status === 'Completed') {
+      score = -500; // Completed always sorted to the absolute bottom
+      explanationParts.length = 0;
+      explanationParts.push('Completed');
+    } else if (subtasks.length > 0) {
+      if (progressRatio < 0.25) {
+        score += 12;
+        explanationParts.push('Minimal progress');
+      } else if (progressRatio < 0.75) {
+        score += 5;
+        explanationParts.push('Partial progress');
+      }
+    } else {
+      score += 10;
+      explanationParts.push('Not started');
+    }
+
+    // 5. AI Risk Level Calibration
+    if (task.analysis?.riskLevel === 'High') {
+      score += 15;
+      explanationParts.push('High risk level');
+    } else if (task.analysis?.riskLevel === 'Medium') {
+      score += 6;
+    }
+
+    return {
+      score: Math.max(0, score),
+      explanation: explanationParts.join(' • ') || 'Standard prioritization'
+    };
+  };
+
   if (tasks.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm">
@@ -80,14 +170,21 @@ export default function TaskList({
     );
   }
 
+  // Dynamic ranking of tasks by their prioritization scores (descending)
+  const prioritizedTasks = [...tasks].sort((a, b) => {
+    const aPriority = getDynamicPriority(a);
+    const bPriority = getDynamicPriority(b);
+    return bPriority.score - aPriority.score;
+  });
+
   return (
     <div className="overflow-hidden border border-slate-100 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900/50 backdrop-blur-sm shadow-sm">
       <div className="px-5 py-4 border-b border-slate-50 dark:border-slate-800/80 flex items-center justify-between">
         <h3 className="font-display font-bold text-base text-slate-800 dark:text-slate-100">
-          Evaluated Guard List ({tasks.length})
+          Evaluated Guard List ({prioritizedTasks.length})
         </h3>
         <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">
-          Select a task to inspect agent plans
+          Ranked dynamically by urgency & risk
         </span>
       </div>
 
@@ -105,7 +202,7 @@ export default function TaskList({
                 Effort
               </th>
               <th className="py-3.5 px-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                Priority
+                Priority Score
               </th>
               <th className="py-3.5 px-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 AI Risk
@@ -116,9 +213,10 @@ export default function TaskList({
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
-            {tasks.map((task) => {
+            {prioritizedTasks.map((task) => {
               const remaining = getRemainingDaysText(task.deadline);
               const isSelected = selectedTaskId === task.id;
+              const dynamicPriority = getDynamicPriority(task);
 
               return (
                 <tr
@@ -132,7 +230,7 @@ export default function TaskList({
                 >
                   {/* Task Name & Deadline */}
                   <td className="py-4 px-5">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-start gap-3">
                       {/* Custom Checkbox */}
                       <button
                         type="button"
@@ -140,7 +238,7 @@ export default function TaskList({
                           e.stopPropagation();
                           onToggleStatus(task.id);
                         }}
-                        className="text-slate-300 dark:text-slate-700 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:outline-none"
+                        className="text-slate-300 dark:text-slate-700 hover:text-blue-500 dark:hover:text-blue-400 transition-colors focus:outline-none mt-1"
                       >
                         {task.status === 'Completed' ? (
                           <CheckCircle2 size={18} className="text-emerald-500 dark:text-emerald-400 fill-emerald-50 dark:fill-emerald-950/20" />
@@ -157,18 +255,25 @@ export default function TaskList({
                         >
                           {task.name}
                         </span>
+                        
                         <div className="flex items-center gap-1.5 mt-0.5">
                           <Calendar size={11} className="text-slate-400" />
                           <span className={`text-[11px] ${remaining.color}`}>
                             {task.deadline} ({remaining.text})
                           </span>
                         </div>
+
+                        {/* Interactive dynamic prioritization diagnostic line */}
+                        <div className="mt-1.5 flex items-center gap-1 text-[9px] text-indigo-500 dark:text-indigo-400 font-bold bg-indigo-50/50 dark:bg-indigo-950/20 px-1.5 py-0.5 rounded border border-indigo-100/30 dark:border-indigo-900/10 w-fit">
+                          <Bot size={10} className="text-indigo-500" />
+                          <span>Why: {dynamicPriority.explanation}</span>
+                        </div>
                       </div>
                     </div>
                   </td>
 
                   {/* Difficulty */}
-                  <td className="py-4 px-3">
+                  <td className="py-4 px-3 vertical-align-middle">
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${getDifficultyBadge(task.difficulty)}`}>
                       {task.difficulty}
                     </span>
@@ -182,11 +287,14 @@ export default function TaskList({
                   {/* Priority Score */}
                   <td className="py-4 px-3">
                     {task.analysis ? (
-                      <div className="flex items-center gap-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                        <span className="text-sm font-bold text-blue-600 dark:text-blue-400 font-mono">
-                          {task.analysis.priorityScore}
-                        </span>
+                      <div className="flex flex-col gap-0.5">
+                        <div className="flex items-center gap-1">
+                          <div className={`w-1.5 h-1.5 rounded-full ${dynamicPriority.score > 70 ? 'bg-red-500' : dynamicPriority.score > 30 ? 'bg-amber-500' : 'bg-blue-500'}`} />
+                          <span className="text-sm font-bold text-slate-800 dark:text-slate-100 font-mono">
+                            {task.analysis.priorityScore}
+                          </span>
+                        </div>
+                        <span className="text-[8px] font-mono text-slate-400">Dynamic: {dynamicPriority.score}</span>
                       </div>
                     ) : (
                       <span className="text-xs text-slate-300 dark:text-slate-700 font-mono">-</span>
@@ -196,7 +304,7 @@ export default function TaskList({
                   {/* AI Risk level */}
                   <td className="py-4 px-3">
                     <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-medium border ${getRiskBadge(task.analysis?.riskLevel)}`}>
-                      {task.analysis?.riskLevel === 'High' && <AlertTriangle size={10} className="text-red-500" />}
+                      {task.analysis?.riskLevel === 'High' && <AlertTriangle size={10} className="text-red-500 animate-pulse" />}
                       {task.analysis ? task.analysis.riskLevel : 'Pending'}
                     </span>
                   </td>

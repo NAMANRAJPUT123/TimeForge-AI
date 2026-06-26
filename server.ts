@@ -393,7 +393,7 @@ app.post('/api/dashboard-summary', async (req, res) => {
 
     const prompt = `
       You are "Deadline Guardian AI", a central dashboard coordinator.
-      Your task is to analyze the user's active/pending task list and generate two key deliverables in a JSON response:
+      Your task is to analyze the user's active/pending task list and generate key deliverables in a JSON response:
       1. **briefing**: A personal, supportive daily briefing (under 150 words). Style guide: ${toneInstruction}. Include:
          - A friendly greeting in style
          - Count of active tasks
@@ -408,6 +408,15 @@ app.post('/api/dashboard-summary', async (req, res) => {
          - Overloaded days (days in schedules with high work allocation)
          - General productivity trend
          - Immediate suggested focus for today.
+      3. **todayWorkloadHours**: A recommended number of total hours to allocate to focus work today (e.g. between 1 and 8 depending on the severity of their upcoming deadlines and active schedules).
+      4. **todayPriorityTask**: The name of today's single highest priority task.
+      5. **todayPriorityWhy**: A concise, clear explanation of WHY this task has the highest priority today (mention deadline proximity, difficulty, overdue status, etc.).
+      6. **motivationMessage**: A short, inspiring, contextual motivation/productivity message (15-20 words) tailored to their workload size and selected tone.
+      7. **breakRecommendation**: A tailored recommendation of break intervals to match today's workload and difficulty (e.g., "50 minutes of intense work, followed by a 10-minute active stretch break", "25-5 Pomodoro rounds", or "Take a 15-minute screen-free break every 90 minutes").
+      8. **contextRecommendations**: A list of exactly 3 smart, context-aware productivity recommendations based on their overall task landscape, calendar events, and burnout risks. For example:
+         - "Finish this before tomorrow because your calendar is busy later this week."
+         - "Reduce today's workload to avoid burnout."
+         - "De-scope non-critical subtasks of hard items."
 
       User's Current Tasks:
       ${tasksSummary || 'No tasks currently scheduled. Suggest creating a task!'}
@@ -420,6 +429,16 @@ app.post('/api/dashboard-summary', async (req, res) => {
           "string of insight 2",
           "string of insight 3",
           "string of insight 4"
+        ],
+        "todayWorkloadHours": 4,
+        "todayPriorityTask": "string of the highest priority task",
+        "todayPriorityWhy": "string explaining why this is prioritized",
+        "motivationMessage": "string containing the motivational message",
+        "breakRecommendation": "string explaining recommended break intervals",
+        "contextRecommendations": [
+          "string of context advice 1",
+          "string of context advice 2",
+          "string of context advice 3"
         ]
       }
 
