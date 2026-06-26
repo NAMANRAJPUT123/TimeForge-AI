@@ -11,53 +11,55 @@
 ---
 
 ## 🔗 Live Demo
+
 Access the live prototype here:
-**[https://your-app-url](https://ais-pre-dayd36lsv2fcor422ouq55-940259505323.asia-east1.run.app)**
+👉 **[Live Application Link](https://ais-pre-dayd36lsv2fcor422ouq55-940259505323.asia-east1.run.app)**
 
 ---
 
 ## 💡 Why Deadline Guardian AI?
-Procrastination and deadline panic are rarely caused by a lack of tasks; they are caused by **cognitive overload and misjudged workload size**. **Deadline Guardian AI** solves "The Last-Minute Life Saver" problem statement by shifting productivity software from a *passive folder of checklists* to an *active, predictive guardian*. By running background capacity checks, automatically scheduling micro-milestones, generating emergency recovery plans, and warning the user of calendar conflicts before they occur, it acts as an intelligent shield that rescues users from last-minute burnout and keeps deadlines secure.
+
+Procrastination and deadline panic are rarely caused by a lack of intent; they are caused by **cognitive overload and misjudged workload scale**. Traditional productivity software acts as a *passive folder of checklists* that relies entirely on the user to guess effort and manually organize timelines. **Deadline Guardian AI** solves "The Last-Minute Life Saver" problem statement by turning task tracking into an *active, predictive guardian*. By running local capacity analysis, dynamically scheduling micro-milestones across calendar days, compiling actionable AI recovery plans for overloaded periods, and alerting users of calendar conflicts before they occur, it acts as an intelligent shield that rescues users from last-minute burnout and keeps deadlines secure.
 
 ---
 
 ## 📌 Project Overview
 
-**Deadline Guardian AI** is an intelligent, full-stack, multi-agent productivity companion designed for the modern developer, student, and knowledge worker. Built specifically for the Google AI Studio Hackathon, the platform goes beyond static checklist managers to act as a **proactive guard dog for your time**. By dynamically analyzing risk, automatically distributing subtasks across calendar timelines, and predicting burnout probability, Deadline Guardian AI converts chaotic, last-minute panic into structured, micro-scheduled confidence.
+**Deadline Guardian AI** is an intelligent, full-stack productivity companion designed for developers, students, and knowledge workers. Built for the Google AI Studio Hackathon, the platform goes beyond static checklists to act as a **proactive guard dog for your time**. By dynamically analyzing task risk factors, distributing subtasks across calendar timelines, and warning users of capacity constraints, Deadline Guardian AI converts chaotic, last-minute panic into structured, micro-scheduled confidence.
 
 ---
 
 ## 🚨 Problem Statement
 
 ### *The Chaos of "The Last-Minute Life"*
-Traditional task managers suffer from a fundamental flaw: **they are passive containers**. They rely on the user to estimate work, organize daily subtasks, and track their own capacity. Under pressure, this leads to:
-* **Over-Optimism Bias**: Underestimating the actual hours needed to complete complex projects (e.g. "I'll do my entire final research paper tomorrow").
+Traditional task managers suffer from a fundamental design flaw: **they are passive containers**. They rely on the user to estimate work hours, break down subtasks, and track their own daily capacity. Under pressure, this leads to:
+* **Over-Optimism Bias**: Underestimating the actual hours needed to complete complex projects (e.g. "I'll write my entire final report tomorrow").
 * **Timeline Overload**: Spreading out deadlines but piling up actual work on the final days, causing intense stress and late submissions.
 * **Invisible Bottlenecks**: Missing conflicts between external calendar obligations (e.g., meetings, exams) and heavy task requirements.
-* **Alert Fatigue**: Standard alarms that sound the same for a 5-minute chores checklist as they do for a high-risk project due in 24 hours.
+* **Alert Fatigue**: Standard notifications that sound the same for a 5-minute chores checklist as they do for a high-risk project due in 24 hours.
 
 ---
 
 ## 💡 The Solution
 
-Deadline Guardian AI solves the passive management crisis by introducing a proactive, automated, and context-aware feedback loop.
+Deadline Guardian AI solves the passive management crisis by introducing an automated, context-aware analysis and planning feedback loop:
 
 ```
 ┌────────────────────────────────────────────────────────┐
 │                   Active Guard List                    │
-│   (Tasks with Difficulty, Deadlines, & Effort Hours)    │
+│   (Tasks with Difficulty, Deadlines, & Effort Hours)   │
 └───────────────────────────┬────────────────────────────┘
-                            │ (Telemetry Data Flow)
+                            │ (Local Task Parameters)
                             ▼
 ┌────────────────────────────────────────────────────────┐
-│            Analytical Risk Prediction Engine           │
-│  Daily Ratio Thresholds & Difficulty Multipliers       │
+│            Dynamic Risk & Prioritization Engine        │
+│   (5-Dimension Calculations & Capacity Benchmarks)     │
 └───────────────────────────┬────────────────────────────┘
-                            │ (Risk & Urgency Evaluation)
+                            │ (Urgency & Complexity Ratios)
                             ▼
 ┌────────────────────────────────────────────────────────┐
 │                  Multi-Agent Gemini                    │
-│      Breakdowns, Priority Matrix, Emergency Plans      │
+│  (Step-by-Step Milestones, Emergency Recovery Plans)   │
 └───────────────────────────┬────────────────────────────┘
                             │ (Durable Storage & Sync)
                             ▼
@@ -66,19 +68,53 @@ Deadline Guardian AI solves the passive management crisis by introducing a proac
 └────────────────────────────────────────────────────────┘
 ```
 
-The application runs a continuous background telemetry check, calculates a **Dynamic Priority Score** and **AI Risk Level**, generates step-by-step day-by-day subtask schedules, and pushes them directly into your **Google Calendar** with smart reminder overrides.
+The application runs a continuous dynamic telemetry check on your tasks, calculates a **Dynamic Priority Score** and **AI Risk Level**, generates step-by-step day-by-day subtask schedules, and pushes them directly into your **Google Calendar** with smart reminder overrides.
 
 ---
 
 ## 📸 Screenshots
 
-| Dashboard Interface | AI Daily Briefing |
-| :---: | :---: |
-| ![Dashboard Placeholder](https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80) <br> *Core task management tracking and dynamic score indices.* | ![Briefing Placeholder](https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80) <br> *Proactive morning summary with adjustable coaching tones.* |
+*Note: Replace the placeholder graphics below with actual screenshots of your running instance when publishing to your personal repository.*
 
-| AI Assistant Chat | Risk Analytics & Workloads |
-| :---: | :---: |
-| ![Assistant Placeholder](https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80) <br> *Real-time context-aware feedback and task conversation module.* | ![Analytics Placeholder](https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80) <br> *Mathematical capacity checks mapping hours versus days remaining.* |
+### Dashboard
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                                                                          │
+│   [ PLACEHOLDER: DASHBOARD INTERFACE SCREENSHOT ]                        │
+│   - Showing the Active Guard List, Urgency Gauges, and Workload Charts   │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+### AI Daily Briefing
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                                                                          │
+│   [ PLACEHOLDER: AI DAILY BRIEFING SCREENSHOT ]                          │
+│   - Showing tone selector pills (Coach, Analyst, Sergeant) and summaries │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+### AI Assistant
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                                                                          │
+│   [ PLACEHOLDER: AI CO-PILOT CHAT INTERFACE SCREENSHOT ]                 │
+│   - Showing interactive context-aware discussions on timeline risks       │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+```
+
+### Risk Analytics
+```
+┌──────────────────────────────────────────────────────────────────────────┐
+│                                                                          │
+│   [ PLACEHOLDER: CAPACITY ANALYTICS SCREENSHOT ]                         │
+│   - Showing the Recharts daily effort graphs versus remaining capacities │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -120,10 +156,10 @@ Provides live context-driven advice based on your dashboard state:
 
 ## 🛠️ Google Technologies Used
 
-* **Google AI Studio**: Served as the primary IDE playground and environment setup suite, running secure full-stack sandbox development instances on Cloud Run.
-* **Gemini API**: Core intelligence model running **Gemini 3.5 Flash** (with a fallback routing hierarchy to **Gemini 3.1 Flash-Lite**). Generates structured JSON responses for step-by-step subtask schedules, prioritization reasoning, emergency recovery plans, and tone-adjusted daily summaries.
-* **Firebase Authentication**: Secures the user profile credentials, supporting instant authorization popup providers.
-* **Google Cloud Firestore**: Provides durable, low-latency, multi-device backup synchronization for tasks, schedule milestones, and completed subtask records under unique Sync IDs.
+* **Google AI Studio**: Served as the primary development platform, managing API keys and provisioning secure full-stack sandbox environments.
+* **Gemini API**: Core intelligence layer using the official `@google/genai` SDK with **Gemini 3.5 Flash** (with custom fallback routing to **Gemini 3.1 Flash-Lite**). Generates structured JSON responses for step-by-step subtask schedules, prioritization reasoning, emergency recovery plans, and tone-adjusted daily summaries.
+* **Firebase Authentication**: Secures the user profile credentials, supporting email password and authorization popup providers.
+* **Google Cloud Firestore**: Provides durable, low-latency backup synchronization for tasks, schedule milestones, and completed subtask records under unique Sync IDs.
 * **Google Calendar Integration**: Connects dynamically with the Google Calendar REST API using OAuth scopes, enabling one-click exporting of calculated daily micro-schedule slots with custom email and pop-up notifications.
 
 ---
@@ -170,8 +206,8 @@ The application is engineered as a secure, full-stack, server-proxied architectu
 
 ### 1. Clone the repository and install dependencies
 ```bash
-git clone https://github.com/your-username/deadline-guardian-ai.git
-cd deadline-guardian-ai
+git clone https://github.com/NAMANRAJPUT123/DeadlineGuardianAI.git
+cd DeadlineGuardianAI
 npm install
 ```
 
@@ -209,7 +245,7 @@ npm start
 
 ## 👥 The Team
 
-* **Raj Rajput** — Lead Engineer & Full-Stack Architect
+* **Naman Rajput** — Lead Engineer & Full-Stack Architect
 * Built under the banner of **"The Last-Minute Life Saver"** for the Google AI Studio Hackathon.
 
 ---
