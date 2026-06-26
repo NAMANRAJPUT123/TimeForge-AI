@@ -116,7 +116,12 @@ app.post('/api/analyze-task', async (req, res) => {
     const prompt = `
       You are "Deadline Guardian AI", a multi-agent productivity oracle consisting of five specialized agents:
       1. **AI Planner Agent**: Breaks down the primary task into standard actionable, step-by-step subtasks. Each subtask must have a title, brief description, and duration (estimated completion effort in hours).
-      2. **AI Risk Analysis Agent**: Calculates probability of missing the deadline (0-100%), determines a risk level (Low, Medium, High), provides a precise diagnostic explanation (riskReason), and details the precise likelihood of missing the deadline (likelihoodOfMissingDeadline).
+      2. **AI Risk Analysis Agent**: Calculates probability of missing the deadline (0-100%), determines a risk level (Low, Medium, High), provides a precise diagnostic explanation (riskReason), and details the precise likelihood of missing the deadline (likelihoodOfMissingDeadline). Formulate this prediction analytically:
+         - Let DailyRatio = (Estimated Effort / Days Remaining).
+         - If DailyRatio > ${parsedMaxHours}, mark riskLevel as "High" with a riskProbability >= 85% because it violates the bandwidth constraint.
+         - If DailyRatio is between 50% and 100% of ${parsedMaxHours}, mark riskLevel as "Medium" with a riskProbability between 40% and 80% depending on difficulty.
+         - Otherwise, mark riskLevel as "Low" with riskProbability < 40%.
+         - Incorporate complexity coefficients based on Self-Assessed Difficulty: multiplier of 1.0 for Easy, 1.25 for Medium, and 1.5 for Hard.
       3. **AI Priority Agent**: Assesses total complexity and urgency to assign a priority score (0-100).
       4. **AI Rescue Agent**: If riskProbability is > 70% (or riskLevel is High), generates a detailed emergency recovery plan (recoveryPlan). It must have:
          - emergencyPlan: an emergency recovery strategy/actionable advice
