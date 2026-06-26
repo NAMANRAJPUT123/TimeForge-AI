@@ -53,10 +53,9 @@ async function generateGeminiContent(config: {
   const ai = getAiClient();
   const modelsToTry = config.models || [
     'gemini-3.5-flash',
-    'gemini-2.0-flash',
+    'gemini-3.1-flash-lite',
     'gemini-2.5-flash',
-    'gemini-2.5-pro',
-    'gemini-3.1-flash-lite'
+    'gemini-2.5-pro'
   ];
   
   let lastError: any = null;
@@ -111,6 +110,371 @@ async function generateGeminiContent(config: {
   }
   
   throw lastError || new Error('Failed to generate content from any Gemini model.');
+}
+
+// Smart Local Fallback Evaluators for high durability when under Gemini API Rate/Quota Limits
+function getAnalyzeTaskFallback(
+  name: string,
+  deadline: string,
+  difficulty: string,
+  estimatedHours: number,
+  today: string,
+  maxHoursPerDay: number
+) {
+  const dToday = new Date(today);
+  const dDeadline = new Date(deadline);
+  const diffTime = dDeadline.getTime() - dToday.getTime();
+  const daysRemaining = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+
+  const multiplier = difficulty === 'Hard' ? 1.5 : difficulty === 'Medium' ? 1.25 : 1.0;
+  const weightedHours = estimatedHours * multiplier;
+  const dailyWorkloadRatio = Number((weightedHours / daysRemaining).toFixed(2));
+
+  let riskLevel: 'Low' | 'Medium' | 'High' = 'Low';
+  let riskProbability = 15;
+  if (dailyWorkloadRatio > maxHoursPerDay) {
+    riskLevel = 'High';
+    riskProbability = Math.min(98, Math.round(85 + (dailyWorkloadRatio - maxHoursPerDay) * 5));
+  } else if (dailyWorkloadRatio > maxHoursPerDay * 0.5) {
+    riskLevel = 'Medium';
+    riskProbability = Math.min(80, Math.round(40 + (dailyWorkloadRatio / maxHoursPerDay) * 40));
+  } else {
+    riskProbability = Math.max(10, Math.round((dailyWorkloadRatio / maxHoursPerDay) * 35));
+  }
+
+  const proximityFactor = Math.max(0, 100 - daysRemaining * 10);
+  const difficultyFactor = difficulty === 'Hard' ? 40 : difficulty === 'Medium' ? 20 : 0;
+  const priorityScore = Math.min(100, Math.max(10, Math.round(proximityFactor * 0.6 + difficultyFactor + (estimatedHours / 40) * 10)));
+
+  const subtasks = [
+    {
+      title: `Phase 1: Initial setup & architecture skeleton`,
+      description: `Prepare workspace environments and scaffold core database schemas for "${name}".`,
+      duration: Math.round(estimatedHours * 0.25 * 10) / 10 || 1
+    },
+    {
+      title: `Phase 2: Core feature logic & validation loops`,
+      description: `Implement principal functional pathways, API routing, and central business rules.`,
+      duration: Math.round(estimatedHours * 0.5 * 10) / 10 || 2
+    },
+    {
+      title: `Phase 3: Visual tuning, integration & edge checks`,
+      description: `Polishing user interfaces, styling, responsive checks, and executing final test sequences.`,
+      duration: Math.round(estimatedHours * 0.25 * 10) / 10 || 1
+    }
+  ];
+
+  const sumSubtasks = subtasks.reduce((sum, s) => sum + s.duration, 0);
+  if (sumSubtasks !== estimatedHours) {
+    subtasks[1].duration = Number((subtasks[1].duration + (estimatedHours - sumSubtasks)).toFixed(1));
+  }
+
+  const schedule: any[] = [];
+  let remainingHoursToAlloc = estimatedHours;
+  for (let i = 0; i < daysRemaining; i++) {
+    const d = new Date(dToday);
+    d.setDate(dToday.getDate() + i);
+    const dateStr = d.toISOString().split('T')[0];
+
+    let alloc = Number((estimatedHours / daysRemaining).toFixed(1));
+    if (i === daysRemaining - 1) {
+      alloc = Number(remainingHoursToAlloc.toFixed(1));
+    } else {
+      alloc = Math.min(alloc, maxHoursPerDay);
+      remainingHoursToAlloc -= alloc;
+    }
+
+    if (alloc <= 0) continue;
+
+    let mainFocus = `Progressive milestone iteration`;
+    let items = [`Execute core subtask goals`, `Review timeline compliance metrics`];
+    if (i === 0) {
+      mainFocus = `Scaffolding & setup initiative`;
+      items = [`Establish local project workspaces`, `Verify API access and mock-ups`];
+    } else if (i === daysRemaining - 1) {
+      mainFocus = `Final visual audit & checkoff`;
+      items = [`Run complete interface check`, `Confirm deadline requirements met`];
+    }
+
+    schedule.push({
+      date: dateStr,
+      hoursAllocated: alloc,
+      mainFocus,
+      tasks: items
+    });
+  }
+
+  const successProbability = Math.max(10, 100 - riskProbability);
+  const recoveryPlan = {
+    emergencyPlan: riskLevel === 'High' 
+      ? `High timeline pressure detected! Pivot immediately to a Minimal Viable Product (MVP) structure to preserve submission safety.`
+      : `Timeline buffer is stable. Maintain a steady developmental pace of ${dailyWorkloadRatio} hours/day to prevent end-of-interval rushing.`,
+    focusFirst: [
+      `Secure core application loop & logic structures`,
+      `Establish foundational schema parameters`
+    ],
+    postpone: [
+      `Complex auxiliary dashboard telemetry graphs`,
+      `Highly custom interface animations and decorative styling`
+    ],
+    criticalTasks: [
+      `Validate fundamental CRUD operations`,
+      `Check critical endpoint parameters`
+    ],
+    skippableTasks: [
+      `Multi-theme color togglers`,
+      `Secondary profile preferences pages`
+    ],
+    mvpStrategy: `Construct the skeletal features first to demonstrate operational utility. Bypass elaborate visuals until the primary loop functions flawlessly.`,
+    estimatedSuccessProbability: successProbability,
+    todayPriorityList: [
+      `Isolate the primary milestone requirements`,
+      `Block out a focused 2-hour work slot today`
+    ]
+  };
+
+  const recommendations = [
+    `Establish a dedicated focus interval today to make rapid early progress.`,
+    `Identify must-have items from your requirements list and isolate them from nice-to-haves.`,
+    `Minimize context switching: deep focus on one key milestone yields 40% higher efficiency.`
+  ];
+
+  const committeeFeedback = [
+    {
+      agentName: "AI Planner Agent",
+      verdict: "Optimal" as const,
+      decision: "Organized task into 3 major milestone phases.",
+      reasoning: "Breaking the primary objective into separate setup, logic, and polish layers ensures measurable daily momentum."
+    },
+    {
+      agentName: "AI Risk Analysis Agent",
+      verdict: riskLevel === 'High' ? "Critical" as const : riskLevel === 'Medium' ? "Warning" as const : "Optimal" as const,
+      decision: `Assigned a ${riskProbability}% failure risk level based on workload ratio.`,
+      reasoning: `Daily workload requirement is ${dailyWorkloadRatio}h/day compared to a max limit of ${maxHoursPerDay}h/day.`
+    },
+    {
+      agentName: "Smart Schedule Agent",
+      verdict: "Optimal" as const,
+      decision: `Distributed work hours evenly across ${daysRemaining} days.`,
+      reasoning: `Prevents timeline spikes by capping the allocated workload cleanly.`
+    }
+  ];
+
+  return {
+    priorityScore,
+    riskLevel,
+    riskProbability,
+    riskReason: `Analyzed workload density of ${estimatedHours} effort hours across ${daysRemaining} calendar day(s) with difficulty multiplier of ${multiplier}x.`,
+    likelihoodOfMissingDeadline: `Calculated failure chance is ${riskProbability}% due to workload of ${dailyWorkloadRatio}h/day vs a ${maxHoursPerDay}h/day bandwidth limit.`,
+    completionStrategy: `Establish foundational setups early on, followed by core logic and visual tweaks in sequence.`,
+    estimatedEffort: `${estimatedHours} hours total estimated effort across ${daysRemaining} days.`,
+    suggestedCalendarEvents: [
+      `Scaffold setup & schema initializations`,
+      `Feature development & validation logic`,
+      `Final validation & visual tuning checklist`
+    ],
+    subtasks,
+    schedule,
+    recoveryPlan,
+    recommendations,
+    committeeFeedback
+  };
+}
+
+function getDashboardSummaryFallback(tasks: any[], tone: string) {
+  const activeTasks = tasks.filter((t: any) => !t.completed);
+  const totalTasksCount = tasks.length;
+  const activeCount = activeTasks.length;
+
+  if (activeCount === 0) {
+    return {
+      briefing: "Welcome to Deadline Guardian AI! Create your first guarded task to unlock AI daily briefings and smart timeline insights.",
+      insights: [
+        "Create a task to analyze deadline urgency.",
+        "Use the AI Planner Agent to break down task steps.",
+        "Connect your Google Calendar to sync daily work milestones.",
+        "Activate cloud sync for cross-device synchronization."
+      ],
+      todayWorkloadHours: 0,
+      todayPriorityTask: "Launch your first evaluation",
+      todayPriorityWhy: "You currently have no active or pending tasks in your guard list.",
+      motivationMessage: "An hour of proactive planning can save you hours of stressful last-minute execution.",
+      breakRecommendation: "Take brief regular stretch breaks to stay alert.",
+      contextRecommendations: [
+        "Create a new task with estimated hours and a real deadline.",
+        "Connect Google Calendar to synchronize planned milestones.",
+        "Set up a cloud database profile for secure backup operations."
+      ]
+    };
+  }
+
+  let highestPriorityTask = activeTasks[0];
+  let maxPriority = -1;
+  let totalHoursRemaining = 0;
+
+  for (const t of activeTasks) {
+    totalHoursRemaining += t.estimatedHours || 0;
+    const score = t.analysis?.priorityScore || 0;
+    if (score > maxPriority) {
+      maxPriority = score;
+      highestPriorityTask = t;
+    }
+  }
+
+  let briefingText = "";
+  if (tone === "Drill Sergeant") {
+    briefingText = `Listen up! Status telemetry scan complete. You have ${totalTasksCount} objectives in your field of operation, with ${activeCount} active items requiring immediate execution. Your absolute primary target is '${highestPriorityTask.name}', which registers an urgency level of ${maxPriority > 0 ? maxPriority : 50}/100. Stop procrastinating and attack this objective now! A focused block of 4 hours today is non-negotiable. Maintain momentum before the timeline compromises. Work hard, work fast, and execute!`;
+  } else if (tone === "Analytical Analyst") {
+    briefingText = `Status telemetry scan complete. You have ${totalTasksCount} total tasks in your ecosystem, with ${activeCount} active items currently requiring processing. Your primary focus is the '${highestPriorityTask.name}' task, which carries a calculated urgency index of ${maxPriority > 0 ? maxPriority : 50}%. Your total pending workload is ${totalHoursRemaining} hours. Presenting a high probability of successful completion if you dedicate a focused 4-hour block today. Prioritize this high-yield project to maintain momentum before the end-of-month transition. Avoid context-switching to preserve deep-work capacity.`;
+  } else {
+    briefingText = `Hello! Take a deep breath. Let's look at your day together. You have ${totalTasksCount} total tasks on your radar, with ${activeCount} active items requiring attention. Our primary gentle focus for today is '${highestPriorityTask.name}', which has a priority score of ${maxPriority > 0 ? maxPriority : 50}%. Together, we can tackle this step-by-step. Let's aim to allocate a manageable block of 3-4 hours today, keeping your mind refreshed with supportive breaks. You've got this, and you're making steady, beautiful progress!`;
+  }
+
+  const insights = [
+    `Highest priority identified as "${highestPriorityTask.name}" based on complexity and deadline proximity.`,
+    `Total pending workload sits at ${totalHoursRemaining} hours across ${activeCount} active objectives.`,
+    `Burnout prevention triggers recommend dividing heavy daily effort slices with restorative pauses.`,
+    `Proactive alignment advises completing primary milestones ahead of schedule buffers.`
+  ];
+
+  return {
+    briefing: briefingText,
+    insights,
+    todayWorkloadHours: Math.min(8, Math.max(2, Math.round(totalHoursRemaining / 4) || 3)),
+    todayPriorityTask: highestPriorityTask.name,
+    todayPriorityWhy: `This task carries the highest computed priority rating (${maxPriority > 0 ? maxPriority : 50}/100) due to its difficulty parameter and imminent calendar timeline constraints.`,
+    motivationMessage: tone === "Drill Sergeant" 
+      ? "Action cures fear. Do not wait for inspiration. Execute now!"
+      : tone === "Analytical Analyst"
+      ? "Consistency over intensity: systematic progress optimizes cognitive bandwidth."
+      : "Be gentle with yourself. Every small step forward is a victory.",
+    breakRecommendation: "50 minutes of focused effort followed by a 10-minute movement stretch interval.",
+    contextRecommendations: [
+      `Concentrate focus on the principal subtask of "${highestPriorityTask.name}" early in the day.`,
+      `De-scope optional visual layouts or decorative panels to secure a reliable core submission.`,
+      `Synchronize your scheduled milestones with Google Calendar to ensure zero external meeting overlap.`
+    ]
+  };
+}
+
+function getAssistantChatFallback(message: string, tasks: any[]) {
+  const activeTasks = tasks.filter((t: any) => !t.completed);
+  const msgLower = message.toLowerCase();
+
+  let reply = "";
+
+  if (activeTasks.length === 0) {
+    reply = `### Hello! I am your **Deadline Guardian Copilot** 🛡️
+    
+I am currently monitoring your timeline. You have no active tasks in your workspace right now.
+To unlock my smart recommendations, task comparisons, and calendar sync plans, please **create a task** in the guard list!
+
+Once you add a task, I can help you:
+- Break it down into step-by-step subtasks.
+- Calculate its risk index and daily workload.
+- Generate an AI Rescue Mode emergency plan.
+- Sync milestones directly to your Google Calendar.
+
+Would you like to get started by adding a task now?`;
+    return { reply };
+  }
+
+  let highestPriorityTask = activeTasks[0];
+  let maxPriority = -1;
+  for (const t of activeTasks) {
+    const score = t.analysis?.priorityScore || 0;
+    if (score > maxPriority) {
+      maxPriority = score;
+      highestPriorityTask = t;
+    }
+  }
+
+  const selectAction = `[ACTION:SELECT_TASK:${highestPriorityTask.id}]`;
+  const rescueAction = `[ACTION:RESCUE_MODE:${highestPriorityTask.id}]`;
+
+  if (msgLower.includes("work on today") || msgLower.includes("focus today") || msgLower.includes("today")) {
+    reply = `### Today's Strategic Focus 🎯
+
+Based on your current workspace metrics, you should prioritize **"${highestPriorityTask.name}"** ${selectAction}.
+
+**Here is why:**
+- **Urgency Score**: It carries an urgency score of **${highestPriorityTask.analysis?.priorityScore || 65}/100**.
+- **Deadline**: It is due on **${highestPriorityTask.deadline}**.
+- **Remaining Effort**: You have approximately **${highestPriorityTask.estimatedHours || 5} hours** of estimated work remaining.
+
+**Suggested Next Steps:**
+1. Click **Inspect Task** ${selectAction} to open its side panel.
+2. Review its generated subtask checklist and focus on the very first incomplete phase.
+3. If the timeline feels tight, launch the **AI Rescue Mode** ${rescueAction} to de-scope nice-to-haves and instantly save up to 3-5 hours!
+
+*Would you like me to suggest specific hourly allocations for this task today?*`;
+  } else if (msgLower.includes("urgent") || msgLower.includes("priority") || msgLower.includes("imminent")) {
+    reply = `### Urgency Diagnostic Report 🚨
+
+Comparing your active schedule profiles, the most urgent objective is **"${highestPriorityTask.name}"** ${selectAction}.
+
+**Urgency Metric Breakdown:**
+* **Priority Rating**: **${highestPriorityTask.analysis?.priorityScore || 65}/100**
+* **Risk Coefficient**: **${highestPriorityTask.analysis?.riskLevel || "Medium"}** (${highestPriorityTask.analysis?.riskProbability || 45}%)
+* **Timeline Limit**: Due on **${highestPriorityTask.deadline}**
+
+If you feel overwhelmed by this deadline, I highly recommend activating the **Rescue Guard Protocol** ${rescueAction} which can automatically streamline your checklist.
+
+To inspect this task's full schedule and committee feedback, click **Inspect Task** ${selectAction}.`;
+  } else if (msgLower.includes("finish") || msgLower.includes("can i") || msgLower.includes("week") || msgLower.includes("possible")) {
+    const totalHours = activeTasks.reduce((sum, t) => sum + (t.estimatedHours || 0), 0);
+    reply = `### Capacity Evaluation 📊
+
+Let's run a quick diagnostic check on your remaining workload for this week:
+- **Active Tasks**: You have **${activeTasks.length} active tasks**.
+- **Total Workload**: You have **${totalHours} total estimated hours** of work remaining.
+
+**Verdict:** 
+${totalHours > 15 ? "⚠️ **Caution Advised**: Your total remaining effort is significant. If you distribute this evenly, you will need to allocate around **(average of 2-3 hours/day)**." : "✅ **Highly Feasible**: Your current workload is fully manageable. By maintaining a steady daily pace of **1-2 hours**, you are on track for a zero-stress, optimal completion."}
+
+**My Recommendation:**
+- Review your primary priority item, **"${highestPriorityTask.name}"** ${selectAction}.
+- Click the Google Calendar sync button in its panel to lock down dedicated work blocks, protecting your focus hours from unexpected interruptions.`;
+  } else if (msgLower.includes("reorganize") || msgLower.includes("schedule") || msgLower.includes("plan")) {
+    reply = `### Reorganization Strategy 🗓️
+
+To optimize your weekly workflow and reduce cognitive friction, I recommend this restructuring layout:
+
+1. **Protect your Morning Focus Block**: Work on **"${highestPriorityTask.name}"** ${selectAction} during your peak focus hours today.
+2. **Postpone Secondary Features**: For any task flagged as high-risk, use **AI Rescue Mode** ${rescueAction} to defer non-essential subtasks.
+3. **Synchronize Timelines**: Click the Google Calendar sync option on your key tasks to establish clear, visible milestones on your daily calendar.
+
+*Would you like me to help you draft a custom step-by-step hour allocation plan for this restructure?*`;
+  } else if (msgLower.includes("postpone") || msgLower.includes("skip") || msgLower.includes("cancel")) {
+    reply = `### De-Scoping & Postponement Diagnostic ✂️
+
+When facing intense timeline pressure, protecting your submission integrity is our top goal. Here is what you can safely adjust:
+
+1. **Primary Candidate**: In **"${highestPriorityTask.name}"** ${selectAction}, we can safely defer secondary items such as deep aesthetic customizations, mock configurations, or auxiliary screens.
+2. **Action**: Click **Activate Rescue Mode** ${rescueAction} to see a list of skippable/postponable items and immediately reduce your workload hours.
+3. **Pacing**: Postponing nice-to-haves can drop your overall stress levels and lift your completion probability back to **90%+**!
+
+Let's focus strictly on the Core MVP first!`;
+  } else {
+    reply = `### Hello! I am your **Deadline Guardian Copilot** 🛡️
+
+I am here to guide you through your deadlines and protect your productivity. 
+
+**Quick Status Check:**
+- You have **${activeTasks.length} active tasks** in your ecosystem.
+- Your highest-risk priority target is **"${highestPriorityTask.name}"** ${selectAction}.
+- Its computed priority rating is **${highestPriorityTask.analysis?.priorityScore || 65}/100**.
+
+**You can ask me questions like:**
+- *"What should I work on today?"*
+- *"Which task is most urgent?"*
+- *"Can I finish everything this week?"*
+- *"What can I postpone safely?"*
+
+How can I help you guard your timeline right now?`;
+  }
+
+  return { reply };
 }
 
 // 1. API endpoint for analyzing task deadlines
@@ -230,11 +594,27 @@ app.post('/api/analyze-task', async (req, res) => {
     res.json({ success: true, analysis: result });
 
   } catch (error: any) {
-    console.error('Error analyzing task:', error);
-    res.status(500).json({
-      success: false,
-      error: error?.message || 'An internal error occurred during Gemini AI task analysis.'
-    });
+    console.error('Error analyzing task via Gemini, invoking smart local fallback analyzer:', error);
+    try {
+      const { name, deadline, difficulty, estimatedHours, today, maxHoursPerDay } = req.body;
+      const parsedMaxHours = maxHoursPerDay ? Number(maxHoursPerDay) : 8;
+      const parsedHours = Number(estimatedHours) || 5;
+      const result = getAnalyzeTaskFallback(
+        name || 'Guarded Task',
+        deadline || new Date().toISOString().split('T')[0],
+        difficulty || 'Medium',
+        parsedHours,
+        today || new Date().toISOString().split('T')[0],
+        parsedMaxHours
+      );
+      res.json({ success: true, analysis: result, isFallback: true });
+    } catch (fallbackError: any) {
+      console.error('Fallback analyzer also failed:', fallbackError);
+      res.status(500).json({
+        success: false,
+        error: error?.message || 'An internal error occurred during task analysis.'
+      });
+    }
   }
 });
 
@@ -474,11 +854,18 @@ app.post('/api/dashboard-summary', async (req, res) => {
     res.json({ success: true, ...result });
 
   } catch (error: any) {
-    console.error('Error in dashboard summary:', error);
-    res.status(500).json({
-      success: false,
-      error: error?.message || 'Failed to generate dashboard AI briefing.'
-    });
+    console.error('Error in dashboard summary via Gemini, invoking smart local fallback summary:', error);
+    try {
+      const { tasks: clientTasks, tone } = req.body;
+      const result = getDashboardSummaryFallback(clientTasks || [], tone || 'Empathic Coach');
+      res.json({ success: true, ...result, isFallback: true });
+    } catch (fallbackError: any) {
+      console.error('Fallback dashboard summary also failed:', fallbackError);
+      res.status(500).json({
+        success: false,
+        error: error?.message || 'Failed to generate dashboard AI briefing.'
+      });
+    }
   }
 });
 
@@ -537,8 +924,15 @@ app.post('/api/assistant-chat', async (req, res) => {
 
     res.json({ success: true, reply: response.text || 'I am ready to help guard your deadlines.' });
   } catch (error: any) {
-    console.error('Error in assistant chat:', error);
-    res.status(500).json({ error: error?.message || 'Assistant failed to generate response.' });
+    console.error('Error in assistant chat via Gemini, invoking smart local fallback chat:', error);
+    try {
+      const { message, tasks: clientTasks } = req.body;
+      const result = getAssistantChatFallback(message || '', clientTasks || []);
+      res.json({ success: true, ...result, isFallback: true });
+    } catch (fallbackError: any) {
+      console.error('Fallback assistant chat also failed:', fallbackError);
+      res.status(500).json({ error: error?.message || 'Assistant failed to generate response.' });
+    }
   }
 });
 

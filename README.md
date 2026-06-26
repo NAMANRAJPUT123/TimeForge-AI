@@ -124,43 +124,38 @@ Provides live context-driven advice based on your dashboard state:
 
 Below are actual visual highlights from the **Deadline Guardian AI** system, showcasing the depth of its user interface and custom-designed widget layouts:
 
-### 1. Full Dashboard Overview
-![Full Dashboard](assets/full-dashboard.png)
-*A look at the master workspace dashboard combining score telemetry, daily tasks, recommendation engines, and calendar status feeds.*
 
----
-
-### 2. AI Daily Briefing Section
+### 1. AI Daily Briefing Section
 ![AI Daily Briefing](assets/ai-daily-briefing.png)
 *Proactive morning summary generating personalized tactical action plans. Effortlessly toggle between Coach, Analyst, and Sergeant personality modes.*
 
 ---
 
-### 3. Evaluated Guard List, Timeline Diagnosis & Planner Decompositions
+### 2. Evaluated Guard List, Timeline Diagnosis & Planner Decompositions
 ![Dashboard Middle](assets/dashboard-middle.png)
 *Dynamic prioritization list ranking tasks by imminent deadlines, mathematical effort ratios, and automated AI planner decompositions.*
 
 ---
 
-### 4. AI Rescue Guard Protocol Control Center
+### 3. AI Rescue Guard Protocol Control Center
 ![Rescue Protocol](assets/rescue-protocol.png)
 *Interactive emergency de-scoping cockpit displaying pivot strategies, high-priority lists, and estimated saving hours.*
 
 ---
 
-### 5. Context-Aware Recommendations
+### 4. Context-Aware Recommendations
 ![Recommendations](assets/recommendations.png)
 *Personalized smart recommendations suggesting active micro-steps, revision guides, and targeted focus goals based on your exam parameters.*
 
 ---
 
-### 6. Productivity Workload Trend Chart
+### 5. Productivity Workload Trend Chart
 ![Workload Trend](assets/workload-trend.png)
 *Visualizing total hours allocated to daily schedule milestones across the upcoming week using animated Recharts canvas overlays.*
 
 ---
 
-### 7. Score Diagnostic Factors
+### 6. Score Diagnostic Factors
 ![Score Diagnostics](assets/score-diagnostics.png)
 *Evaluating real-time system metrics, completed task scope, overdue alarms, and overall calendar schedule adherence.*
 
