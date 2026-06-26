@@ -1,12 +1,23 @@
 # 🛡️ Deadline Guardian AI
 ### *The Last-Minute Life Saver* — Google AI Studio Hackathon Submission
 
-[![Framework: React](https://img.shields.io/badge/Framework-React%2018-blue?logo=react)](https://react.dev/)
+[![Framework: React 19](https://img.shields.io/badge/Framework-React%2019-blue?logo=react)](https://react.dev/)
 [![Build: Vite](https://img.shields.io/badge/Build-Vite-646CFF?logo=vite)](https://vitejs.dev/)
 [![Backend: Node.js / Express](https://img.shields.io/badge/Backend-Node.js%20%2F%20Express-339933?logo=node.js)](https://nodejs.org/)
 [![Database: Google Cloud Firestore](https://img.shields.io/badge/Database-Firestore-FFCA28?logo=firebase)](https://firebase.google.com/)
-[![AI: Gemini 2.5 Flash](https://img.shields.io/badge/AI-Gemini%202.5%20Flash-00A4EF?logo=google-gemini)](https://ai.google.dev/)
+[![AI: Gemini 3.5 Flash](https://img.shields.io/badge/AI-Gemini%203.5%20Flash-00A4EF?logo=google-gemini)](https://ai.google.dev/)
 [![Integrations: Google Calendar](https://img.shields.io/badge/Integrations-Google%20Calendar-4285F4?logo=google-calendar)](https://calendar.google.com/)
+
+---
+
+## 🔗 Live Demo
+Access the live prototype here:
+**[https://your-app-url](https://ais-pre-dayd36lsv2fcor422ouq55-940259505323.asia-east1.run.app)**
+
+---
+
+## 💡 Why Deadline Guardian AI?
+Procrastination and deadline panic are rarely caused by a lack of tasks; they are caused by **cognitive overload and misjudged workload size**. **Deadline Guardian AI** solves "The Last-Minute Life Saver" problem statement by shifting productivity software from a *passive folder of checklists* to an *active, predictive guardian*. By running background capacity checks, automatically scheduling micro-milestones, generating emergency recovery plans, and warning the user of calendar conflicts before they occur, it acts as an intelligent shield that rescues users from last-minute burnout and keeps deadlines secure.
 
 ---
 
@@ -27,7 +38,7 @@ Traditional task managers suffer from a fundamental flaw: **they are passive con
 
 ---
 
-## 💡 The Solution: Deadline Guardian AI
+## 💡 The Solution
 
 Deadline Guardian AI solves the passive management crisis by introducing a proactive, automated, and context-aware feedback loop.
 
@@ -40,7 +51,7 @@ Deadline Guardian AI solves the passive management crisis by introducing a proac
                             ▼
 ┌────────────────────────────────────────────────────────┐
 │            Analytical Risk Prediction Engine           │
-│  Daily Ratio Thresholds & Difficulty Multipliers  │
+│  Daily Ratio Thresholds & Difficulty Multipliers       │
 └───────────────────────────┬────────────────────────────┘
                             │ (Risk & Urgency Evaluation)
                             ▼
@@ -56,6 +67,18 @@ Deadline Guardian AI solves the passive management crisis by introducing a proac
 ```
 
 The application runs a continuous background telemetry check, calculates a **Dynamic Priority Score** and **AI Risk Level**, generates step-by-step day-by-day subtask schedules, and pushes them directly into your **Google Calendar** with smart reminder overrides.
+
+---
+
+## 📸 Screenshots
+
+| Dashboard Interface | AI Daily Briefing |
+| :---: | :---: |
+| ![Dashboard Placeholder](https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80) <br> *Core task management tracking and dynamic score indices.* | ![Briefing Placeholder](https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80) <br> *Proactive morning summary with adjustable coaching tones.* |
+
+| AI Assistant Chat | Risk Analytics & Workloads |
+| :---: | :---: |
+| ![Assistant Placeholder](https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80) <br> *Real-time context-aware feedback and task conversation module.* | ![Analytics Placeholder](https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80) <br> *Mathematical capacity checks mapping hours versus days remaining.* |
 
 ---
 
@@ -97,12 +120,11 @@ Provides live context-driven advice based on your dashboard state:
 
 ## 🛠️ Google Technologies Used
 
-| Technology | Implementation & Role |
-| :--- | :--- |
-| **Gemini 2.5 Flash** | Powers the core multi-agent system. Generates micro-schedule subtasks, urgency diagnostics, emergency recovery plans, and personalized daily coaching briefs using the official `@google/genai` TypeScript SDK. |
-| **Google Cloud Firestore** | Acts as the real-time, cross-device database layer to back up task definitions, active subtask completion tracking, daily telemetry records, and synchronization state. |
-| **Google Calendar API** | Integrates directly with the user's primary calendar using secure OAuth scopes. Automatically inserts daily workload events and milestones with tailored reminders. |
-| **Google Cloud Run** | Hosts the full-stack container environment, exposing safe backend APIs to communicate with Gemini securely without leaking keys to the client browser. |
+* **Google AI Studio**: Served as the primary IDE playground and environment setup suite, running secure full-stack sandbox development instances on Cloud Run.
+* **Gemini API**: Core intelligence model running **Gemini 3.5 Flash** (with a fallback routing hierarchy to **Gemini 3.1 Flash-Lite**). Generates structured JSON responses for step-by-step subtask schedules, prioritization reasoning, emergency recovery plans, and tone-adjusted daily summaries.
+* **Firebase Authentication**: Secures the user profile credentials, supporting instant authorization popup providers.
+* **Google Cloud Firestore**: Provides durable, low-latency, multi-device backup synchronization for tasks, schedule milestones, and completed subtask records under unique Sync IDs.
+* **Google Calendar Integration**: Connects dynamically with the Google Calendar REST API using OAuth scopes, enabling one-click exporting of calculated daily micro-schedule slots with custom email and pop-up notifications.
 
 ---
 
@@ -128,11 +150,11 @@ The application is engineered as a secure, full-stack, server-proxied architectu
          ▼                                         ▼
 ┌──────────────────┐                     ┌──────────────────┐
 │  Gemini SDK      │                     │ Google Workspace │
-│  (GenAI Flash)   │                     │ (Calendar API)   │
+│  (GenAI SDK)     │                     │ (Calendar API)   │
 └──────────────────┘                     └──────────────────┘
 ```
 
-* **Frontend**: React 18, Tailwind CSS (fluid responsive layout), Lucide Icons, and Framer Motion (`motion/react`) for fluid transition animations.
+* **Frontend**: React 19, Tailwind CSS (fluid responsive layout), Lucide Icons, and Framer Motion (`motion/react`) for fluid transition animations.
 * **Data Visualization**: Built with `recharts` to render real-time workload distribution charts, completed task trends, and burnout warning gauges.
 * **Backend**: Express.js server bundled using `esbuild` to output a unified `dist/server.cjs` file, maximizing load speed and runtime reliability in sandboxed container environments.
 
@@ -144,7 +166,7 @@ The application is engineered as a secure, full-stack, server-proxied architectu
 * **Node.js** (v18 or higher)
 * **npm** (v9 or higher)
 * **Google Gemini API Key** (Get one at [Google AI Studio](https://aistudio.google.com/))
-* **Firebase Config** (If enabling Google Firestore cloud sync)
+* **Firebase Config** (Auto-bootstrapped via `firebase-applet-config.json` inside the sandbox workspace)
 
 ### 1. Clone the repository and install dependencies
 ```bash
@@ -157,38 +179,23 @@ npm install
 Create a `.env` file in the root directory and copy the contents from `.env.example`:
 ```env
 # Server Secrets
-GEMINI_API_KEY=your_gemini_api_key_here
-
-# Client Configs (Prefixed with VITE_)
-VITE_FIREBASE_API_KEY=your_firebase_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
-VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_sender_id
-VITE_FIREBASE_APP_ID=your_firebase_app_id
+GEMINI_API_KEY="your_gemini_api_key_here"
+APP_URL="http://localhost:3000"
 ```
+*Note: Client-side Firebase credentials are read directly from `firebase-applet-config.json` and do not require manual variable declaration.*
 
 ### 3. Start Development Server
 ```bash
 npm run dev
 ```
-The development server will boot and run on `http://localhost:3000`.
+The development server will boot and run on `http://localhost:3000` using `tsx`.
 
 ### 4. Build for Production
-To bundle the frontend assets and compile the TypeScript Express server:
+To bundle the frontend assets and compile the TypeScript Express server into a unified CommonJS file:
 ```bash
 npm run build
 npm start
 ```
-
----
-
-## 📸 Core Dashboards & Interfaces
-
-* **Daily Briefing Widget**: Select coaching tones and view dynamic task summaries, motivational highlights, and custom break advice.
-* **Risk Analytics & Charts**: Interactive charts mapping total hours required versus days remaining, warning you of upcoming high-density days.
-* **Proactive Guard List**: Sorts tasks automatically by dynamic priority. Check off subtasks to instantly reduce the task's computed risk score.
-* **Google Calendar Exporter**: Export calculated daily schedules into your Google Calendar timeline with one click.
 
 ---
 
