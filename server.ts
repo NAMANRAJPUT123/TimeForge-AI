@@ -288,7 +288,7 @@ function getDashboardSummaryFallback(tasks: any[], tone: string) {
 
   if (activeCount === 0) {
     return {
-      briefing: "Welcome to Deadline Guardian AI! Create your first guarded task to unlock AI daily briefings and smart timeline insights.",
+      briefing: "Welcome to TimeForge AI! Create your first guarded task to unlock AI daily briefings and smart timeline insights.",
       insights: [
         "Create a task to analyze deadline urgency.",
         "Use the AI Planner Agent to break down task steps.",
@@ -364,7 +364,7 @@ function getAssistantChatFallback(message: string, tasks: any[]) {
   let reply = "";
 
   if (activeTasks.length === 0) {
-    reply = `### Hello! I am your **Deadline Guardian Copilot** 🛡️
+    reply = `### Hello! I am your **TimeForge Copilot** 🛡️
     
 I am currently monitoring your timeline. You have no active tasks in your workspace right now.
 To unlock my smart recommendations, task comparisons, and calendar sync plans, please **create a task** in the guard list!
@@ -456,7 +456,7 @@ When facing intense timeline pressure, protecting your submission integrity is o
 
 Let's focus strictly on the Core MVP first!`;
   } else {
-    reply = `### Hello! I am your **Deadline Guardian Copilot** 🛡️
+    reply = `### Hello! I am your **TimeForge Copilot** 🛡️
 
 I am here to guide you through your deadlines and protect your productivity. 
 
@@ -492,7 +492,7 @@ app.post('/api/analyze-task', async (req, res) => {
 
     // Prepare system prompt for the committee of AI Agents
     const prompt = `
-      You are "Deadline Guardian AI", a multi-agent productivity oracle consisting of five specialized agents:
+      You are "TimeForge AI", a multi-agent productivity oracle consisting of five specialized agents:
       1. **AI Planner Agent**: Breaks down the primary task into standard actionable, step-by-step subtasks. Each subtask must have a title, brief description, and duration (estimated completion effort in hours).
       2. **AI Risk Analysis Agent**: Calculates probability of missing the deadline (0-100%), determines a risk level (Low, Medium, High), provides a precise diagnostic explanation (riskReason), and details the precise likelihood of missing the deadline (likelihoodOfMissingDeadline). Formulate this prediction analytically:
          - Let DailyRatio = (Estimated Effort / Days Remaining).
@@ -786,7 +786,7 @@ app.post('/api/dashboard-summary', async (req, res) => {
     }
 
     const prompt = `
-      You are "Deadline Guardian AI", a central dashboard coordinator.
+      You are "TimeForge AI", a central dashboard coordinator.
       Your task is to analyze the user's active/pending task list and generate key deliverables in a JSON response:
       1. **briefing**: A personal, supportive daily briefing (under 150 words). Style guide: ${toneInstruction}. Include:
          - A friendly greeting in style
@@ -893,7 +893,7 @@ app.post('/api/assistant-chat', async (req, res) => {
     }).join('\n');
 
     const prompt = `
-      You are the "Deadline Guardian Copilot", an AI productivity coach embedded inside a high-end academic and professional companion app.
+      You are the "TimeForge Copilot", an AI productivity coach embedded inside a high-end academic and professional companion app.
       Your goal is to answer the user's question directly, clearly, tactically, and with deep empathy.
       Use the current task list context provided below to reference actual tasks, deadlines, and current risk parameters.
 
@@ -953,7 +953,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[Deadline Guardian] Server boot complete on http://0.0.0.0:${PORT}`);
+    console.log(`[TimeForge] Server boot complete on http://0.0.0.0:${PORT}`);
   });
 }
 

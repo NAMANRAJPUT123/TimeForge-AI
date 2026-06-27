@@ -1,5 +1,5 @@
 {
-  "name": "Deadline Guardian-AI",
+  "name": "TimeForge AI",
   "description": "An AI-powered productivity companion designed to help you analyze risk, schedule, and stay on top of deadlines with multi-device backup sync.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

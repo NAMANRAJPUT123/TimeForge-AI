@@ -70,7 +70,7 @@ export default function AIDailyBriefing({ tasks, onSelectTask, onTriggerAssistan
     if (tasks.length > 0) {
       fetchBriefing(tone);
     } else {
-      setBriefing('Welcome to Deadline Guardian AI! Create your first guarded task to unlock AI daily briefings and smart timeline insights.');
+      setBriefing('Welcome to TimeForge AI! Create your first guarded task to unlock AI daily briefings and smart timeline insights.');
       setInsights([
         'Create a task to analyze deadline urgency.',
         'Use the AI Planner Agent to break down task steps.',

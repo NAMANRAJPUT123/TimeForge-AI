@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Submission: TimeForge AI</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: #2d3748;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #f7fafc;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    h1 {
+      color: #1a365d;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+      margin-top: 0;
+      font-size: 2.25rem;
+    }
+    h2 {
+      color: #2b6cb0;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 5px;
+      margin-top: 35px;
+      font-size: 1.5rem;
+    }
+    h3 {
+      color: #4a5568;
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+    p {
+      margin-bottom: 15px;
+      color: #4a5568;
+    }
+    ul, ol {
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+      color: #4a5568;
+    }
+    strong {
+      color: #2d3748;
+    }
+    .highlight-box {
+      background-color: #ebf8ff;
+      border-left: 4px solid #3182ce;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .tech-tag {
+      background-color: #edf2f7;
+      color: #2b6cb0;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      font-weight: 600;
+      display: inline-block;
+      margin: 2px;
+    }
+    .icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <span class="icon">🛡️</span>
+      <h1 style="border-bottom: none; margin-bottom: 5px;">TimeForge AI</h1>
+      <p style="font-style: italic; font-size: 1.1rem; color: #718096; margin-top: 0;">The Last-Minute Life Saver — Proactive context-aware productivity guardian</p>
+    </div>
+
+    <div class="highlight-box">
+      <strong>Submission Tip:</strong> You can copy and paste the text below directly into your Google Doc, Devpost submission form, or project portfolio! It matches all your requested sections.
+    </div>
+
+    <h2>📌 1. Problem Statement Selected</h2>
+    <p>Traditional task and deadline management tools are passive buckets. They sit quietly, accepting inputs, but do nothing to actively prevent failure. Users suffer from several psychological and tactical bottlenecks:</p>
+    <ol>
+      <li><strong>Over-Optimism Bias (Planning Fallacy):</strong> Humans consistently underestimate the time and effort required to complete complex objectives (e.g., "I'll write that 10-page paper tomorrow night").</li>
+      <li><strong>Timeline Overload &amp; Bottlenecking:</strong> Spreading out arbitrary project milestones, only to realize too late that the final days have an unmanageable accumulation of hours.</li>
+      <li><strong>Invisible Commitments:</strong> Standard calendars and task lists live in separate silos. A user might schedule a 6-hour study block not realizing they have 5 hours of classes and meetings that same day.</li>
+      <li><strong>Alert Fatigue:</strong> A generic notification has the same visual weight for a minor chore (e.g., "Buy milk") as it does for a high-stakes exam or project submission. This leads to users ignoring notifications entirely.</li>
+    </ol>
+    <p>Traditional software fails to actively analyze task risk, calculate available hour thresholds, or intervene when a user is on a direct path to missing a critical deadline.</p>
+
+    <h2>🛡️ 2. Solution Overview</h2>
+    <p><strong>TimeForge AI</strong> is an active guardian designed to protect your schedule and mental health from last-minute crunches. It acts as an intelligent, real-time "guard dog" for your time.</p>
+    <p>Instead of waiting for you to fail, the system:</p>
+    <ul>
+      <li><strong>Calculates Risk Mathematically:</strong> Computes the direct workload-to-capacity ratios based on your available days, complexity parameters, and task weight.</li>
+      <li><strong>Autonomously Breaks Down Goals:</strong> Uses <strong>Gemini 3.5 Flash</strong> to decompose large, intimidating deadlines into custom, structured daily sub-steps.</li>
+      <li><strong>Schedules Visually &amp; Actionably:</strong> Maps workload hours onto an active, interactive timeline using color-coded metrics and custom charts to highlight congestions.</li>
+      <li><strong>Intervenes with Emergency Recovery Plans:</strong> If your task demands exceed a safe daily threshold, it triggers an <strong>AI Emergency Recovery Protocol</strong> offering concrete de-scoping advice.</li>
+      <li><strong>Syncs Globally &amp; Securely:</strong> Keeps your schedule backed up using Google Cloud Firestore and schedules milestones directly on your real-world Google Calendar.</li>
+    </ul>
+
+    <h2>✨ 3. Key Features</h2>
+    <ul>
+      <li><strong>📊 Intelligent Multi-Dimension Prioritization:</strong> Dynamically orders tasks by analyzing days remaining, complexity multipliers (1.0x to 1.5x), estimated effort hours, subtask completion state, and active risk calculations.</li>
+      <li><strong>🧠 Personality-Driven AI Daily Briefings:</strong> Receive tailored tactical briefings designed around your productivity style:
+        <ul>
+          <li><em>Empathic Coach:</em> Warm, comforting support focused on stress relief, mental health, and sustainable progress.</li>
+          <li><em>Analytical Analyst:</em> Raw data breakdowns, math bottlenecks, clear hour metrics, and workload distribution graphs.</li>
+          <li><em>Drill Sergeant:</em> High-intensity, direct, zero-excuses accountability to push you through procrastination.</li>
+        </ul>
+      </li>
+      <li><strong>⚡ Automated Workload &amp; Capacity Telemetry:</strong> Calculates immediate daily work ratios. If workloads exceed safe capacity, it triggers a warning banner and launches the <strong>AI Emergency Recovery Plan</strong>.</li>
+      <li><strong>🗓️ Smart Timeline Distribution:</strong> Automatically distributes subtasks evenly across remaining days instead of letting work pile up at the end, suggesting screen-free breaks and focus blocks.</li>
+      <li><strong>🔔 Context-Aware Live Coaching:</strong> Interactive context cards popping up on screen to warn of congestion, offer study/prep tips, or suggest immediate action.</li>
+      <li><strong>☁️ Secure Cloud Backup &amp; Calendar Sync:</strong> Effortless multi-device data persistence using Google Cloud Firestore and calendar integration via secure OAuth flow.</li>
+    </ul>
+
+    <h2>🏗️ 4. Technologies Used</h2>
+    <div style="margin-bottom: 15px;">
+      <span class="tech-tag">React 19</span>
+      <span class="tech-tag">TypeScript</span>
+      <span class="tech-tag">Tailwind CSS</span>
+      <span class="tech-tag">Framer Motion</span>
+      <span class="tech-tag">Recharts</span>
+      <span class="tech-tag">Node.js</span>
+      <span class="tech-tag">Express.js</span>
+      <span class="tech-tag">esbuild</span>
+      <span class="tech-tag">Firebase Auth</span>
+      <span class="tech-tag">Google Cloud Firestore</span>
+      <span class="tech-tag">Gemini API SDK</span>
+    </div>
+    <p>We designed a secure, full-stack, server-proxied architecture to guarantee high performance, persistent sync, and secure key preservation. This ensures secret API keys are kept entirely secure on the backend and are never sent to the browser.</p>
+
+    <h2>🛠️ 5. Google Technologies Utilized</h2>
+    <p>The application heavily integrates Google’s ecosystem to provide a fully robust, secure, production-grade experience:</p>
+    <ol>
+      <li><strong>Google AI Studio &amp; Gemini API (<code>@google/genai</code>):</strong>
+        <ul>
+          <li>Powered by <strong>Gemini 3.5 Flash</strong> on the backend to handle high-speed, structured JSON outputs.</li>
+          <li>Translates natural language goals into fully parsed, actionable daily sub-steps (with hour estimates and milestone descriptions).</li>
+          <li>Generates dynamic daily briefings and tailored emergency recovery advice based on user-selected coaching personalities.</li>
+        </ul>
+      </li>
+      <li><strong>Google Cloud Firestore:</strong>
+        <ul>
+          <li>Used as the core, real-time database to persist user task profiles, subtask completion metrics, coaching preferences, and history logs without risk of browser cache loss.</li>
+        </ul>
+      </li>
+      <li><strong>Firebase Authentication:</strong>
+        <ul>
+          <li>Handles user identity securely via Google Sign-In, connecting task profiles with their Google Accounts.</li>
+        </ul>
+      </li>
+      <li><strong>Google Calendar API:</strong>
+        <ul>
+          <li>Integrated via secure OAuth. Allows the AI engine to programmatically schedule generated sub-steps, milestones, and focus blocks directly onto the user's real-world calendar.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+</body>
+</html>

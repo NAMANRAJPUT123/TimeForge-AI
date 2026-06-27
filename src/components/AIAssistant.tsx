@@ -30,7 +30,7 @@ export default function AIAssistant({
     {
       id: 'welcome',
       sender: 'assistant',
-      text: "Hello! I am your **Deadline Guardian Copilot**. I actively scan your commitments to prevent bottlenecks and guard your deadlines. Ask me anything, or run one of our proactive diagnostics below!",
+      text: "Hello! I am your **TimeForge Copilot**. I actively scan your commitments to prevent bottlenecks and guard your deadlines. Ask me anything, or run one of our proactive diagnostics below!",
       timestamp: new Date()
     }
   ]);
