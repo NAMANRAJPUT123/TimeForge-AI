@@ -1,4 +1,4 @@
-# 🛡️ Deadline Guardian AI
+# 🛡️ TimeForge AI
 ### *The Last-Minute Life Saver* — Google AI Studio Hackathon Submission
 
 [![Framework: React 19](https://img.shields.io/badge/Framework-React%2019-blue?logo=react)](https://react.dev/)
@@ -34,9 +34,9 @@
 
 ## 📌 Project Overview
 
-**Deadline Guardian AI** is an intelligent, full-stack productivity companion designed for developers, students, and knowledge workers. Built for the Google AI Studio Hackathon, the platform goes beyond static checklists to act as a **proactive guard dog for your time**. By dynamically analyzing task risk factors, distributing subtasks across calendar timelines, and warning users of capacity constraints, Deadline Guardian AI converts chaotic, last-minute panic into structured, micro-scheduled confidence.
+**TimeForge AI** is an intelligent, full-stack productivity companion designed for developers, students, and knowledge workers. Built for the Google AI Studio Hackathon, the platform goes beyond static checklists to act as a **proactive guard dog for your time**. By dynamically analyzing task risk factors, distributing subtasks across calendar timelines, and warning users of capacity constraints, TimeForge AI converts chaotic, last-minute panic into structured, micro-scheduled confidence.
 
-The core of Deadline Guardian AI is built on the belief that productivity tools shouldn't just store tasks—they should actively participate in helping you finish them safely and sustainably.
+The core of TimeForge AI is built on the belief that productivity tools shouldn't just store tasks—they should actively participate in helping you finish them safely and sustainably.
 
 ---
 
@@ -54,7 +54,7 @@ Traditional task managers suffer from a fundamental design flaw: **they are pass
 
 ## 💡 The Solution
 
-Deadline Guardian AI solves the passive management crisis by introducing an automated, context-aware analysis and planning feedback loop:
+TimeForge AI solves the passive management crisis by introducing an automated, context-aware analysis and planning feedback loop:
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -122,7 +122,7 @@ Provides live context-driven advice based on your dashboard state:
 
 ## 📸 Screenshots
 
-Below are actual visual highlights from the **Deadline Guardian AI** system, showcasing the depth of its user interface and custom-designed widget layouts:
+Below are actual visual highlights from the **TimeForge AI** system, showcasing the depth of its user interface and custom-designed widget layouts:
 
 
 ### 1. AI Daily Briefing Section
@@ -227,8 +227,8 @@ Ensure you have the required runtime environments on your machine before commenc
 ### Step-by-Step Installation
 1. Clone this repository to your local directory:
    ```bash
-   git clone https://github.com/NAMANRAJPUT123/DeadlineGuardianAI.git
-   cd DeadlineGuardianAI
+   git clone https://github.com/NAMANRAJPUT123/TimeForgeAI.git
+   cd TimeForgeAI
    ```
 2. Install the node module dependencies:
    ```bash
@@ -374,4 +374,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 * **Hackathon Submission Banner**: *"The Last-Minute Life Saver"*
 
 ---
-*Deadline Guardian AI - Turning panic into a structured, micro-scheduled defense.*
+*TimeForge AI - Turning panic into a structured, micro-scheduled defense.*
