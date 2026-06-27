@@ -239,19 +239,56 @@ Ensure you have the required runtime environments on your machine before commenc
 
 ## 🔑 Environment Variables
 
-To run the full-stack server correctly, you must specify variables inside a `.env` file at the root level of your directory. Copy the sample file:
+To run the full-stack server and frontend client correctly in a secure, production-ready environment, you must specify variables inside a `.env` file at the root level of your directory. 
 
-```bash
-cp .env.example .env
-```
+### ⚙️ Quick Start Setup
+1. **Copy the Blueprint**: Create your local environment configuration file from the provided template:
+   ```bash
+   cp .env.example .env
+   ```
+2. **Populate Key Values**: Open your new `.env` file and configure your API tokens, database settings, and credentials. Do not commit `.env` containing your real keys.
 
-Ensure your `.env` contains:
-```env
-# Server Secrets
-GEMINI_API_KEY="your_gemini_api_key_here"
-APP_URL="http://localhost:3000"
-```
-*Note: Firestore client credentials are automatically loaded from `firebase-applet-config.json` inside this repository structure and require no manual variable declaration.*
+---
+
+### 🧬 Required Environment Variables
+
+| Variable Name | Context | Purpose / Description |
+| :--- | :--- | :--- |
+| `GEMINI_API_KEY` | Server-Side | Your primary secret Google GenAI token. Kept secure on the server. |
+| `SQL_HOST` | Server-Side | The target database host address (PostgreSQL). |
+| `SQL_USER` | Server-Side | The database user name (e.g., `postgres`). |
+| `SQL_PASSWORD` | Server-Side | Relational database access password. |
+| `SQL_DB_NAME` | Server-Side | Active SQL schema/database name. |
+| `VITE_FIREBASE_API_KEY` | Client-Side | Public Firebase API key for client SDK. |
+| `VITE_FIREBASE_AUTH_DOMAIN` | Client-Side | Firebase Google auth domain identifier. |
+| `VITE_FIREBASE_PROJECT_ID` | Client-Side | Standard GCP and Firebase project identity code. |
+| `VITE_FIREBASE_APP_ID` | Client-Side | Custom web platform registration unique token. |
+| `VITE_FIREBASE_DATABASE_ID` | Client-Side | Custom Firestore database identifier, default is `(default)`. |
+| `VITE_FIREBASE_STORAGE_BUCKET` | Client-Side | Firebase storage bucket domain. |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | Client-Side | Firebase cloud messaging sender identifier. |
+| `FIREBASE_PROJECT_ID` | Server-Side | Server-side backup GCP project code for Admin SDK operations. |
+| `FIREBASE_DATABASE_ID` | Server-Side | Server-side Firestore database ID. |
+
+---
+
+### 🧠 How to Obtain a Gemini API Key
+1. Navigate to the official [Google AI Studio portal](https://aistudio.google.com/).
+2. Log in with your Google account.
+3. Click on the **Get API Key** button in the left sidebar or top header.
+4. Click **Create API Key** and select either a new project or an existing Google Cloud project.
+5. Copy the generated key (usually starts with `AIzaSy...`) and paste it into `GEMINI_API_KEY` in your `.env` file.
+
+---
+
+### 🔥 How to Configure Firebase
+By default, the application is pre-bundled with a local development configuration mapping inside `firebase-applet-config.json` for live-preview synchronization. To override this configuration with your own secure Firebase workspace:
+1. Navigate to the [Firebase Console](https://console.firebase.google.com/).
+2. Create or select a project. Enable **Firestore Database** and **Authentication** (specifically enabling the Google provider).
+3. Under Project Settings, register a **Web Application** to reveal your Web SDK Configuration dictionary.
+4. Populate the fields prefixed with `VITE_FIREBASE_` inside your `.env` file with values matching your console credentials.
+5. For server-side admin functions (verifying identity tokens or processing database backups), ensure `FIREBASE_PROJECT_ID` and `FIREBASE_DATABASE_ID` match your Firebase console project settings.
+
+*Note: The system supports both custom environment parameters AND automatic fallback matching to local applet structures so that zero-friction development is guaranteed.*
 
 ---
 
